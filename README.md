@@ -40,10 +40,9 @@ Projeto para a Disciplina de **Programação de Dispositos Móveis II**
 ### 💡 Autores
 - [João Victor](https://github.com/JoaoVictor-Noschang)
 
-### 🖥️ Técnologias utilizadas
-- Python & Django
-- HTML5
-- CSS3
+### 🖥️ Tecnologias utilizadas
+- React Native
 - Expo Go
 - SQLite
+- Figma
 
