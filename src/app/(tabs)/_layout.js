@@ -4,6 +4,13 @@ export default function Layout() {
     return(
         <Stack>
             <Stack.Screen name="dashboard" options={{ headerShown: false }} />
+            <Stack.Screen 
+                name="perfil" 
+                options={{
+                    headerShown: true,
+                    headerTitle: "Perfil",
+                }} 
+            />
         </Stack>
     )
 }

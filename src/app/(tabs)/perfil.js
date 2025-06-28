@@ -22,8 +22,9 @@ export default function Calculadora() {
                     style={styles.perfil}
                 />
             </View>
-            <Text style={styles.logo}>PERFIL</Text>
-            <Button title="LogOff" onPress={() => router.replace("/")} />
+            <Text style={styles.logo}>PERFIL aaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            <Button title="Voltar" onPress={() => router.replace("/dashboard")} />
+            <Button color="#FF6347" title="LogOff" onPress={() => router.replace("/")} />
         </View>
     );
 }

@@ -11,7 +11,7 @@ import {
     Button,
 } from 'react-native';
 
-
+import HeaderPage from '../../../../components/Header';
 
 export default function RefeicaoPage() {
 
@@ -30,23 +30,15 @@ export default function RefeicaoPage() {
 
     return (
         <View style={styles.tela}>
-            <View style={styles.header}>
-                <Text style={styles.logo}>+LIFE</Text>
-                <Image
-                    source={{
-                        uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
-                    }}
-                    style={styles.perfil}
-                />
-            </View>
+            
+            <HeaderPage />
+
             <TouchableOpacity
                 style={styles.cadastrar}
                 onPress={() => setModalVisible(true)}
             >
                 <Image
-                    source={{
-                        uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
-                    }}
+                    source={require('../../../../assets/icons/add.png')}
                     style={styles.plus}
                 />
                 <Text style={styles.place}>Adicionar Refeição</Text>
@@ -100,25 +92,6 @@ const styles = StyleSheet.create({
         paddingTop: '15%',
         paddingHorizontal: 30,
         paddingBottom: '10%',
-    },
-    header: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    logo: {
-        fontWeight: 'bold',
-        fontSize: 56,
-        color: '#14213d',
-    },
-    perfil: {
-        width: 70,
-        height: 70,
-        borderWidth: 4,
-        borderColor: '#14213d',
-        borderRadius: 40
     },
     cadastrar: {
         width: '100%',

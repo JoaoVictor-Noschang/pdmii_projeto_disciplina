@@ -1,88 +1,114 @@
 import { Tabs } from "expo-router";
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from "react-native";
 
 export default function Layout() {
     return (
-        <Tabs style={styles.nav}>
+        <Tabs
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: "#ff6347",
+                    borderTopWidth: 0,
+                    height: 100,
+                },
+                tabBarActiveTintColor: "#fff",
+                tabBarInactiveTintColor: "#000",
+                tabBarLabelStyle: {
+                    fontSize: 10,
+                },
+                tabBarIconStyle: {
+                    marginTop: 20,
+                },
+                tabBarShowLabel: false,
+            }}
+        >
             <Tabs.Screen
                 name="index"
                 options={{
                     headerShown: false,
                     title: "Dashboard",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/stats.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
+                    tabBarIcon: ({ focused }) => (
+                        <View style={[styles.iconContainer, focused && styles.activeContainer]}>
+                            <Image
+                                source={require('../../../../assets/icons/stats.png')}
+                                style={styles.icon}
+                            />
+                        </View>
+                    ),
+                }}
+            />
             <Tabs.Screen
                 name="refeicao"
                 options={{
                     headerShown: false,
                     title: "Refeição",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/eat.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
+                    tabBarIcon: ({ focused }) => (
+                        <View style={[styles.iconContainer, focused && styles.activeContainer]}>
+                            <Image
+                                source={require('../../../../assets/icons/eat.png')}
+                                style={styles.icon}
+                            />
+                        </View>
+                    ),
+                }}
+            />
             <Tabs.Screen
                 name="hidratacao"
                 options={{
                     headerShown: false,
                     title: "Hidratação",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/water.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
+                    tabBarIcon: ({ focused }) => (
+                        <View style={[styles.iconContainer, focused && styles.activeContainer]}>
+                            <Image
+                                source={require('../../../../assets/icons/water.png')}
+                                style={styles.icon}
+                            />
+                        </View>
+                    ),
+                }}
+            />
             <Tabs.Screen
                 name="exercicio"
                 options={{
                     headerShown: false,
-                    title: "Exercicio",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/gym.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
+                    title: "Exercício",
+                    tabBarIcon: ({ focused }) => (
+                        <View style={[styles.iconContainer, focused && styles.activeContainer]}>
+                            <Image
+                                source={require('../../../../assets/icons/gym.png')}
+                                style={styles.icon}
+                            />
+                        </View>
+                    ),
+                }}
+            />
             <Tabs.Screen
                 name="calculadora"
                 options={{
                     headerShown: false,
                     title: "Calculadora",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/calculator.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
-            <Tabs.Screen
-                name="perfil"
-                options={{
-                    headerShown: false,
-                    title: "Perfil",
-                    tabBarIcon: () => (
-                        <Image
-                            source={require('../../../../assets/icons/user.png')}
-                            style={{ width: 24, height: 24 }}
-                        />
-                    )
-            }} />
+                    tabBarIcon: ({ focused }) => (
+                        <View style={[styles.iconContainer, focused && styles.activeContainer]}>
+                            <Image
+                                source={require('../../../../assets/icons/calculator.png')}
+                                style={styles.icon}
+                            />
+                        </View>
+                    ),
+                }}
+            />
         </Tabs>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-    nav: {
-        margin: 10,
-        backgroundColor: 'red',
-    }
-})
+    iconContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        width: 65,
+        height: 65,
+    },
+    activeContainer: {
+        backgroundColor: "#76C893", // Fundo verde
+        borderRadius: 10, // Bordas arredondadas
+    },
+});
