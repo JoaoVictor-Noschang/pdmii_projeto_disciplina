@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
         color: '#14213d',
     },
     perfil: {
-        width: 70,
-        height: 70,
-        borderRadius: 40
+        width: 60,
+        height: 60,
     },
 });
