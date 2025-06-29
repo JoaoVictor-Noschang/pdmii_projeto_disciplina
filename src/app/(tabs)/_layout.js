@@ -5,10 +5,17 @@ export default function Layout() {
         <Stack>
             <Stack.Screen name="dashboard" options={{ headerShown: false }} />
             <Stack.Screen 
-                name="perfil" 
+                name="Perfil" 
                 options={{
                     headerShown: true,
                     headerTitle: "Perfil",
+                }} 
+            />
+            <Stack.Screen 
+                name="cadastro" 
+                options={{
+                    headerShown: true,
+                    headerTitle: "Cadastro de Usuário",
                 }} 
             />
         </Stack>

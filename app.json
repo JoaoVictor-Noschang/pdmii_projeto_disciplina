@@ -4,7 +4,7 @@
     "slug": "plus_life",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/expo_assets/icon.png",
+    "icon": "./assets/icon_app.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "scheme": "plus_life",

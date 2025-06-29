@@ -25,7 +25,7 @@ export default function App() {
                 <Text style={styles.cad}>ou</Text>
                 <Text style={styles.cad}>
                     faça o seu
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => {router.replace("/cadastro")}} >
                         <Text style={styles.text_link}>cadastro</Text>
                     </TouchableOpacity>
                     !
