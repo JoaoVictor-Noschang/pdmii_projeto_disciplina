@@ -49,13 +49,13 @@ export default function Calculadora() {
             </TouchableOpacity>
 
             <View style={styles.resultado}>
-                <Text style={{ fontSize:18, fontWeight:'bold', marginBottom:5 }}>Resultado</Text>
+                <Text style={{ fontSize:18, fontWeight:'bold' }}>Resultado</Text>
                 <View style={{ gap: 5 }}>
-                        <Text style={styles.resultTit}>IMC</Text>
+                        <Text>IMC</Text>
                         <Text style={styles.result}>IMC</Text>
                 </View>
                 <View style={{ gap: 5 }}>
-                        <Text style={styles.resultTit}>Observação</Text>
+                        <Text>Observação</Text>
                         <Text style={styles.result}>Normal para os dados informados</Text>
                 </View>
             </View>
