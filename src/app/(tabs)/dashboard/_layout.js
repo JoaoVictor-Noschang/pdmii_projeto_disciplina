@@ -108,7 +108,11 @@ const styles = StyleSheet.create({
         height: 65,
     },
     activeContainer: {
-        backgroundColor: "#76C893", // Fundo verde
-        borderRadius: 10, // Bordas arredondadas
+        backgroundColor: "#6EEB83", 
+        borderRadius: 10, 
     },
+    icon:{
+        width: 30,
+        height: 30,
+    }
 });

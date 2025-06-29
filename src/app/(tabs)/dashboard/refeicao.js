@@ -38,7 +38,7 @@ export default function RefeicaoPage() {
                 onPress={() => setModalVisible(true)}
             >
                 <Image
-                    source={require('../../../../assets/icons/add.png')}
+                    source={require('../../../../assets/icons/add_circle.png')}
                     style={styles.plus}
                 />
                 <Text style={styles.place}>Adicionar Refeição</Text>
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
         gap: 15,
     },
     plus: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
     },
     place: {
         fontWeight: 'bold',

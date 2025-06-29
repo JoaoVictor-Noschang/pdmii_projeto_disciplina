@@ -4,10 +4,13 @@ import { Link, router } from 'expo-router';
 export default function HeaderPage() {
     return (
         <View style={styles.header}>
-            <Text style={styles.logo}>+LIFE</Text>
+            <Image
+                    source={require('../assets/icons/logo02.png')}
+                    style={styles.logo}
+                />
             <TouchableOpacity onPress={() => { router.replace("/perfil") }}>
                 <Image
-                    source={require('../assets/icons/user.png')}
+                    source={require('../assets/icons/user_circle.png')}
                     style={styles.perfil}
                 />
             </TouchableOpacity>
@@ -24,9 +27,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        fontWeight: 'bold',
-        fontSize: 56,
-        color: '#14213d',
+        width: '40%',
+        height: '100%',
+        marginTop: -10,
     },
     perfil: {
         width: 60,

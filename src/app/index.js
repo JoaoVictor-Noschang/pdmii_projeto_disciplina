@@ -5,7 +5,7 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../assets/icons/logo_plus.png')}
+                source={require('../../assets/icons/logo02.png')}
                 style={styles.logo}
             />
             <View style={styles.form}>
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginHorizontal: 'auto',
+        width: '80%',
+        height: '12%',
+        marginTop: -20,
     },
     form: {
         gap: 30,
