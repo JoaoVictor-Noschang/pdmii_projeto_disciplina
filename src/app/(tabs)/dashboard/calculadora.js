@@ -47,6 +47,18 @@ export default function Calculadora() {
                     style={{ fontWeight: 'bold', color:'#fff', fontSize:16, textAlign: 'center' }}
                 >CALCULAR</Text>
             </TouchableOpacity>
+
+            <View style={styles.resultado}>
+                <Text style={{ fontSize:18, fontWeight:'bold', marginBottom:5 }}>Resultado</Text>
+                <View style={{ gap: 5 }}>
+                        <Text style={styles.resultTit}>IMC</Text>
+                        <Text style={styles.result}>IMC</Text>
+                </View>
+                <View style={{ gap: 5 }}>
+                        <Text style={styles.resultTit}>Observação</Text>
+                        <Text style={styles.result}>Normal para os dados informados</Text>
+                </View>
+            </View>
         </View>
     );
 }
@@ -100,6 +112,23 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginHorizontal: 'auto',
         borderRadius: 10,
-        marginTop: 40,
+        marginTop: 30,
+    },
+    resultado: {
+        padding: 25,
+        backgroundColor: '#6EEB83',
+        borderRadius: 15,
+        marginTop: 30,
+        gap: 10,
+        borderWidth: 1,
+        borderColor: '#7F7F7F',
+    },
+    result: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        backgroundColor: '#D9D9D9',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#7F7F7F',
     }
 });
