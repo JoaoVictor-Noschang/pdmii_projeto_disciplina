@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
-import RegistroRef from '../../../../components/RegistroRef'; 
+import RegistroRef from '../../../../components/RegistroRef';
 
 export default function RefeicaoPage() {
 
@@ -31,7 +31,7 @@ export default function RefeicaoPage() {
 
     return (
         <View style={styles.tela}>
-            
+
             <HeaderPage />
 
             <TouchableOpacity
@@ -58,34 +58,49 @@ export default function RefeicaoPage() {
                 transparent={true}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Nova Nota</Text>
+                <View style={styles.modal}>
+                    <View style={styles.mContainer}>
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Título"
-                            value={titulo}
-                            onChangeText={setTitulo}
-                        />
+                        <View style={styles.mLabel}>
+                            <Text style={styles.mTitle}>Refeição</Text>
+                            <TextInput
+                                style={styles.mInput}
+                                placeholder="Alimento.."
+                            />
+                        </View>
+                        <View style={styles.mLabel}>
+                            <Text style={styles.mTitle}>Peso</Text>
+                            <TextInput
+                                style={styles.mInput}
+                                placeholder="Gramas..."
+                            />
+                        </View>
+                        <View style={styles.mLabel}>
+                            <Text style={styles.mTitle}>Calorias</Text>
+                            <TextInput
+                                style={styles.mInput}
+                                placeholder="Kcal..."
+                            />
+                        </View>
 
-                        <TextInput
-                            style={[styles.input, { height: 80 }]}
-                            placeholder="Descrição"
-                            value={descricao}
-                            onChangeText={setDescricao}
-                            multiline
-                        />
+                        <View style={styles.mLabel}>
+                            <Text style={styles.mTitle}>Hora da Refeição</Text>
+                            <View style={styles.mHora}>
+                                <TextInput style={styles.mInputHor} placeholder='hora' readOnly={true} />
+                                <Text style={styles.mTitle}>:</Text>
+                                <TextInput style={styles.mInputHor} placeholder='min' readOnly={true} />
+                            </View>
+                        </View>
 
-                        <View style={styles.buttonContainer}>
-                            <Button title="Cancelar" onPress={() => setModalVisible(false)} />
-                            <Button title="Salvar" onPress={handleSalvarNota} />
+                        <View style={styles.mButton}>
+                            <Button color={'#FF1A1A'} title="Cancelar" onPress={() => setModalVisible(false)} />
+                            <Button title="Cadastrar" onPress={handleSalvarNota} />
                         </View>
                     </View>
                 </View>
-            </Modal>
+            </Modal >
 
-        </View>
+        </View >
     );
 }
 
@@ -125,34 +140,52 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    modalOverlay: {
+    modal: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.4)',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    modalContent: {
+    mContainer: {
         width: '85%',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 20,
-        elevation: 5,
+        backgroundColor: '#FF8D79',
+        borderRadius: 25,
+        padding: 25,
+        gap: 20,
     },
-    modalTitle: {
-        fontSize: 20,
-        marginBottom: 15,
+    mLabel: {
+        gap: 5,
+    },
+    mTitle: {
+        fontSize: 18,
         fontWeight: 'bold',
-        textAlign: 'center',
     },
-    input: {
-        borderWidth: 1,
-        borderColor: '#999',
-        borderRadius: 8,
-        padding: 10,
-        marginBottom: 15,
+    mInput: {
+        width: '100%',
+        textAlign: 'left',
+        backgroundColor: '#D9D9D9',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        fontSize: 16,
     },
-    buttonContainer: {
+    mInputHor: {
+        width: '45%',
+        textAlign: 'left',
+        backgroundColor: '#D9D9D9',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        fontSize: 16,
+    },
+    mHora: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    mButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
     },
 });
