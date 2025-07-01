@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Link, router } from 'expo-router';
 
-export default function RegistroRef({ registro }) {
+export default function RegistroExerci({ registro }) {
     return (
         <View style={styles.card}>
             <View style={styles.head}>
@@ -9,9 +9,7 @@ export default function RegistroRef({ registro }) {
                 <Text style={styles.date}>{registro.date}</Text>
             </View>
             <View style={styles.body}>
-                <Text style={styles.tx}>{registro.peso} g</Text>
-                <Text style={styles.tx}>-</Text>
-                <Text style={[styles.tx, { fontWeight: 'bold' }]}>{registro.kal} Kcal</Text>
+                <Text style={styles.tx}>{registro.tempo} min</Text>
             </View>
             <TouchableOpacity style={styles.deletar}>
                 <Image
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#ff6347',
+        color: '#8C52FF',
     },
     date: {
         color: '#7F7F7F',
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
     },
     tx: {
         fontSize: 16,
-        color: '#ff6347',
+        color: '#8C52FF',
     },
     deletar: {
         position: 'absolute',
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
         right: 15,
         width: 38,
         height: 38,
-        backgroundColor: '#ff6347',
+        backgroundColor: '#AC83FF',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '50%',

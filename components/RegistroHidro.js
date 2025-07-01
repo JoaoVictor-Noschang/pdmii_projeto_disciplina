@@ -6,14 +6,14 @@ export default function RegistroHidro({ registro }) {
         <View style={styles.card}>
             <View style={styles.head}>
                 <Text style={styles.title}>{registro.title}</Text>
-                <Text>{registro.date}</Text>
+                <Text style={styles.date}>{registro.date}</Text>
             </View>
             <View style={styles.body}>
                 <Text style={styles.tx}>{registro.litro} Lt</Text>
             </View>
             <TouchableOpacity style={styles.deletar}>
                 <Image
-                    source={require('../assets/icons/delete.png')}
+                    source={require('../assets/icons/lixeira.png')}
                     style={styles.icon}
                 />
             </TouchableOpacity>
@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#4895EF',
     },
+    date: {
+        color: '#7F7F7F',
+    },
     body: {
         flexDirection: 'row',
         gap: 20
@@ -53,9 +56,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 15,
         right: 15,
+        width: 38,
+        height: 38,
+        backgroundColor: '#7AB8FF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '50%',
     },
     icon: {
-        width: 40,
-        height:40,
+        width: 25,
+        height:20,
     }
 });

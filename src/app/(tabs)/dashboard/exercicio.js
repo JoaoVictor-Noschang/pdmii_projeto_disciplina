@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
+import RegistroExerci from '../../../../components/RegistroExerci';
 
 export default function Exercicio() {
 
@@ -44,6 +45,10 @@ export default function Exercicio() {
                 <Text style={styles.place}>Adicionar Exercício</Text>
             </TouchableOpacity>
             <Text style={styles.subtitle}>Registros de Exercícios</Text>
+
+            <ScrollView>
+                <RegistroExerci registro={{ title: "Musculação", date: "28/06/2025 - 12:45", tempo: 30 }} />
+            </ScrollView>
 
             {/* MODAL */}
             <Modal
