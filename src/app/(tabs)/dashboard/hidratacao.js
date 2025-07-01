@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
+import RegistroHidro from '../../../../components/RegistroHidro';
 
 export default function Hidratacao() {
 
@@ -44,6 +45,10 @@ export default function Hidratacao() {
                 <Text style={styles.place}>Adicionar Hidratação</Text>
             </TouchableOpacity>
             <Text style={styles.subtitle}>Registros de Hidratação</Text>
+
+            <ScrollView>
+                <RegistroHidro registro={{ title: "Água", date: "28/06/2025 - 12:45", litro: 500, kal: 1200 }} />
+            </ScrollView>
 
             {/* MODAL */}
             <Modal
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginVertical: 20,
         padding: 25,
-        backgroundColor: '#4895EF',
+        backgroundColor: '#7AB8FF',
         borderRadius: 15,
         display: 'flex',
         flexDirection: 'row',
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 15,
+        marginBottom: 10,
     },
     modalOverlay: {
         flex: 1,

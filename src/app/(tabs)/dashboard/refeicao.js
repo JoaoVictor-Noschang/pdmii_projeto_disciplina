@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
+import RegistroRef from '../../../../components/RegistroRef'; 
 
 export default function RefeicaoPage() {
 
@@ -44,6 +45,10 @@ export default function RefeicaoPage() {
                 <Text style={styles.place}>Adicionar Refeição</Text>
             </TouchableOpacity>
             <Text style={styles.subtitle}>Registros de Refeições</Text>
+
+            <ScrollView>
+                <RegistroRef registro={{ title: "Almoço", date: "28/06/2025 - 12:45", peso: 500, kal: 1200 }} />
+            </ScrollView>
 
 
             {/* MODAL */}
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 15,
+        marginBottom: 10,
     },
     modalOverlay: {
         flex: 1,

@@ -5,7 +5,7 @@ export default function Layout() {
         <Stack>
             <Stack.Screen name="dashboard" options={{ headerShown: false }} />
             <Stack.Screen 
-                name="Perfil" 
+                name="perfil" 
                 options={{
                     headerShown: true,
                     headerTitle: "Perfil",

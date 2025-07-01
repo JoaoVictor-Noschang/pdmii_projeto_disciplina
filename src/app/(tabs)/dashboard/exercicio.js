@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginVertical: 20,
         padding: 25,
-        backgroundColor: '#8C52FF',
+        backgroundColor: '#AC83FF',
         borderRadius: 15,
         display: 'flex',
         flexDirection: 'row',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 15,
+        marginBottom: 10,
     },
     modalOverlay: {
         flex: 1,
