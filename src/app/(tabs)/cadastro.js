@@ -34,40 +34,24 @@ export default function Calculadora() {
             <View style={styles.form}>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Nome de Usuário</Text>
-                    <TextInput style={styles.input} placeholder='Nome do usuário...' readOnly={true} />
+                    <TextInput style={styles.input} placeholder='Nome do usuário...' />
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>E-mail</Text>
-                    <TextInput style={styles.input} placeholder='E-mail do usuário...' readOnly={true} />
+                    <TextInput style={styles.input} placeholder='E-mail do usuário...' />
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Senha</Text>
-                    <TextInput style={styles.input} placeholder='Uma senha...' readOnly={true} />
+                    <TextInput style={styles.input} placeholder='Uma senha...' />
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Data de Nascimento</Text>
                     <View style={styles.inputData}>
-                        <TextInput style={styles.inputDt} placeholder='dia' readOnly={true} />
+                        <TextInput style={styles.inputDt} placeholder='dia' />
                         <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='mes' readOnly={true} />
+                        <TextInput style={styles.inputDt} placeholder='mes' />
                         <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='ano' readOnly={true} />
-                    </View>
-                </View>
-                <View style={styles.dadosImc}>
-                    <View style={styles.labelInput}>
-                        <Text style={styles.labelText}>Peso</Text>
-                        <View style={styles.inputArea}>
-                            <TextInput style={styles.inputImc} placeholder='Quilos' readOnly={true} />
-                            <Text style={styles.medida}>Kg</Text>
-                        </View>
-                    </View>
-                    <View style={styles.labelInput}>
-                        <Text style={styles.labelText}>Altura</Text>
-                        <View style={styles.inputArea}>
-                            <TextInput style={styles.inputImc} placeholder='Metros' readOnly={true} />
-                            <Text style={styles.medida}>Mt</Text>
-                        </View>
+                        <TextInput style={styles.inputDt} placeholder='ano' />
                     </View>
                 </View>
             </View>
@@ -149,21 +133,6 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius: 10,
-    },
-    dadosImc: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    inputImc: {
-        width: '50%',
-        textAlign: 'center',
-        backgroundColor: '#D9D9D9',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 10,
-    },
-    medida: {
-        width: '8%'
     },
     cad: {
         backgroundColor: '#4895EF',

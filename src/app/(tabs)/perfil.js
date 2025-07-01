@@ -51,27 +51,11 @@ export default function Calculadora() {
                         <TextInput style={styles.inputDt} placeholder='ano' readOnly={true} />
                     </View>
                 </View>
-                <View style={styles.dadosImc}>
-                    <View style={styles.labelInput}>
-                        <Text style={styles.labelText}>Peso</Text>
-                        <View style={styles.inputArea}>
-                            <TextInput style={styles.inputImc} placeholder='Quilos' readOnly={true} />
-                            <Text style={styles.medida}>Kg</Text>
-                        </View>
-                    </View>
-                    <View style={styles.labelInput}>
-                        <Text style={styles.labelText}>Altura</Text>
-                        <View style={styles.inputArea}>
-                            <TextInput style={styles.inputImc} placeholder='Metros' readOnly={true} />
-                            <Text style={styles.medida}>Mt</Text>
-                        </View>
-                    </View>
-                </View>
             </View>
 
             <TouchableOpacity
                 style={styles.atualizar}
-                onPress={ () => { handlePressInput() }}
+                onPress={() => { handlePressInput() }}
             >
                 <Text style={styles.atuCont}>Atualizar Dados</Text>
             </TouchableOpacity>
@@ -153,21 +137,6 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius: 10,
-    },
-    dadosImc: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    inputImc: {
-        width: '50%',
-        textAlign: 'center',
-        backgroundColor: '#D9D9D9',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 10,
-    },
-    medida: {
-        width: '8%'
     },
     atualizar: {
         backgroundColor: '#4895EF',
