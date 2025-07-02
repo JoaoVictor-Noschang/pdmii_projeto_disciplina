@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     View,
@@ -11,10 +11,50 @@ import {
 
 import { router } from 'expo-router';
 
-export default function Calculadora() {
+import { getUsuarioLogado, updateUserStatus } from '../../../data/database';
 
-    const handlePressInput = () => {
-        Alert.alert('[ERRO]: Funcionalidade ainda não disponível!');
+export default function PerfilUsuario() {
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        async function recuperarDadosUsuario() {
+            try {
+                const usuarioLogado = await getUsuarioLogado();
+                if (usuarioLogado) {
+                    setUser(usuarioLogado); // Define os dados do usuário no estado
+                } else {
+                    // Se não houver usuário logado, alerta e redireciona para a tela de login
+                    Alert.alert('Erro', 'Nenhum usuário logado encontrado. Redirecionando para o login.');
+                    router.replace("/");
+                }
+            } catch (err) {
+                console.error('Erro ao buscar dados do usuário:', err);
+                setError(err); // Armazena o erro
+                Alert.alert('Erro', 'Não foi possível carregar os dados do perfil.');
+            }
+        }
+
+        recuperarDadosUsuario();
+    }, []);
+
+    // Função para fazer o LogOff
+    const fazerLogOff = async () => {
+        if (!user || !user.id) {
+            Alert.alert('Erro', 'Não foi possível identificar o usuário para fazer logoff.');
+            return;
+        }
+
+        try {
+            // Atualiza o status do usuário logado para FALSE no banco de dados
+            await updateUserStatus(user.id, false);
+            Alert.alert('Sucesso', 'Você foi desconectado.');
+            // Redireciona para a tela de login
+            router.replace("/");
+        } catch (err) {
+            console.error('Erro ao fazer logoff:', err);
+            Alert.alert('Erro', 'Não foi possível fazer logoff. Tente novamente.');
+        }
     };
 
     return (
@@ -35,21 +75,30 @@ export default function Calculadora() {
             <View style={styles.form}>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Nome de Usuário</Text>
-                    <TextInput style={styles.input} placeholder='Nome do usuário...' readOnly={true} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Nome do usuário'
+                        value={user?.name || ''} // Exibe o nome do usuário
+                        readOnly={true}
+                    />
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>E-mail</Text>
-                    <TextInput style={styles.input} placeholder='E-mail do usuário...' readOnly={true} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='E-mail'
+                        value={user?.email || ''} // Exibe o e-mail do usuário
+                        readOnly={true}
+                    />
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Data de Nascimento</Text>
-                    <View style={styles.inputData}>
-                        <TextInput style={styles.inputDt} placeholder='dia' readOnly={true} />
-                        <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='mes' readOnly={true} />
-                        <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='ano' readOnly={true} />
-                    </View>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Data de Nascimento'
+                        value={user?.dateNasc || ''} // Exibe o e-mail do usuário
+                        readOnly={true}
+                    />
                 </View>
             </View>
 
@@ -62,7 +111,7 @@ export default function Calculadora() {
 
             <TouchableOpacity
                 style={styles.sair}
-                onPress={() => router.replace("/")}
+                onPress={fazerLogOff} // Chama a função de logoff
             >
                 <Text style={styles.logoffCont}>LogOff</Text>
             </TouchableOpacity>
@@ -123,20 +172,6 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 16,
         borderRadius: 20,
-    },
-    inputData: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        gap: 5
-    },
-    inputDt: {
-        width: '30%',
-        textAlign: 'center',
-        backgroundColor: '#D9D9D9',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 10,
     },
     atualizar: {
         backgroundColor: '#4895EF',

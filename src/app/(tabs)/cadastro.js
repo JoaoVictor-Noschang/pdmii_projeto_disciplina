@@ -11,10 +11,53 @@ import {
 
 import { router } from 'expo-router';
 
-export default function Calculadora() {
+import { insertUser } from '../../../data/database';
 
-    const handlePressInput = () => {
-        Alert.alert('[ERRO]: Funcionalidade ainda não disponível!');
+export default function CadastroUsuario() {
+
+    // Estados para armazenar os valores dos inputs
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(''); // Usando 'password' para evitar conflito com 'pass' do DB
+    const [day, setDay] = useState('');
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
+
+    const handleRegister = async () => {
+        
+        if (!name || !email || !password || !day || !month || !year) {
+            Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // Formatação da data de nascimento para o formato esperado pelo banco de dados (TEXT)
+        const dateNasc = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+        try {
+            // Chama a função insertUser do DB e define o status como TRUE (logado)
+            await insertUser(name, email, password, dateNasc, true);
+
+            Alert.alert('Sucesso', 'Usuário cadastrado e logado com sucesso!');
+            // Redireciona para o dashboard ou para a tela principal do app
+            router.replace("/dashboard");
+
+            // Opcional: Limpar os campos após o cadastro
+            setName('');
+            setEmail('');
+            setPassword('');
+            setDay('');
+            setMonth('');
+            setYear('');
+
+        } catch (error) {
+            console.error('Erro ao cadastrar usuário:', error);
+            // Mensagens de erro mais amigáveis ao usuário
+            if (error.message.includes('UNIQUE constraint failed')) {
+                Alert.alert('Erro no Cadastro', 'Este e-mail já está em uso. Tente outro.');
+            } else {
+                Alert.alert('Erro no Cadastro', 'Não foi possível cadastrar o usuário. Tente novamente.');
+            }
+        }
     };
 
     return (
@@ -32,33 +75,76 @@ export default function Calculadora() {
             <Image style={styles.logo} source={require('../../../assets/icons/logo02.png')} />
 
             <View style={styles.form}>
+
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Nome de Usuário</Text>
-                    <TextInput style={styles.input} placeholder='Nome do usuário...' />
+                    <TextInput 
+                        style={styles.input} 
+                        placeholder='Nome do usuário...' 
+                        value={name}
+                        onChangeText={setName}
+                    />
                 </View>
+
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>E-mail</Text>
-                    <TextInput style={styles.input} placeholder='E-mail do usuário...' />
+                    <TextInput 
+                        style={styles.input} 
+                        placeholder='E-mail do usuário...' 
+                        keyboardType="email-address" // Teclado otimizado para email
+                        autoCapitalize="none" // Não capitalizar automaticamente
+                        value={email}
+                        onChangeText={setEmail}
+                    />
                 </View>
+
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Senha</Text>
-                    <TextInput style={styles.input} placeholder='Uma senha...' />
+                    <TextInput 
+                        style={styles.input} 
+                        placeholder='Uma senha...' 
+                        //secureTextEntry // Esconder a senha
+                        value={password}
+                        onChangeText={setPassword}
+                    />
                 </View>
+
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Data de Nascimento</Text>
                     <View style={styles.inputData}>
-                        <TextInput style={styles.inputDt} placeholder='dia' />
+                        <TextInput 
+                            style={styles.inputDt} 
+                            placeholder='dia' 
+                            keyboardType='numeric' 
+                            maxLength={2}
+                            value={day}
+                            onChangeText={setDay}
+                        />
                         <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='mes' />
+                        <TextInput 
+                            style={styles.inputDt} 
+                            placeholder='mês' 
+                            keyboardType='numeric' 
+                            maxLength={2}
+                            value={month}
+                            onChangeText={setMonth}
+                        />
                         <Text>/</Text>
-                        <TextInput style={styles.inputDt} placeholder='ano' />
+                        <TextInput 
+                            style={styles.inputDt} 
+                            placeholder='ano' 
+                            keyboardType='numeric' 
+                            maxLength={4}
+                            value={year}
+                            onChangeText={setYear}
+                        />
                     </View>
                 </View>
             </View>
 
             <TouchableOpacity
                 style={styles.cad}
-                onPress={() => router.replace("/dashboard")}
+                onPress={handleRegister} // Chama a função de cadastro
             >
                 <Text style={styles.cadCont}>CADASTRAR</Text>
             </TouchableOpacity>
