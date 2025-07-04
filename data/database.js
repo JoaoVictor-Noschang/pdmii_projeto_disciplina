@@ -342,3 +342,69 @@ export const deleteExerc = async (exercId) => {
     }
 };
 // ------------------------------------------------------------------------------------------------------------
+
+
+// Funções de rergate de dados para o Dashboiard --------------------------------------------------------------
+
+// Função para regatar o consumo de calorias
+export const getCaloriasDoDia = async (userId, hoje) => {
+    const db = getDb();
+    try {
+        const result = await db.getFirstAsync(
+            'SELECT SUM(caloria) AS totalCalorias FROM refeicoes WHERE idUser = ? AND diaHora LIKE ? || "%";',
+            [userId, hoje]
+        );
+
+        // O valor será null se não houver registros, então retornamos 0 nesse caso
+        const totalCalorias = (result?.totalCalorias ?? 0);
+
+        console.log(`Total de calorias no dia ${hoje} para o user ${userId}:`, totalCalorias);
+        return totalCalorias;
+
+    } catch (error) {
+        console.error('Erro ao regatar e somar calorias:', error);
+        throw error;
+
+    }
+};
+
+// Para resgatar e somar a quantidade de agua consumida no dia 
+export const getHidroDoDia = async (userId, hoje) => {
+    const db = getDb();
+    try {
+        const result = await db.getFirstAsync(
+            'SELECT SUM(quantidade) AS totalQuantidade FROM hidratacoes WHERE idUser = ? AND diaHora LIKE ? || "%";',
+            [userId, hoje]
+        );
+        
+        const totalQuantidade = (result?.totalQuantidade ?? 0);
+
+        console.log(`Total de água consumida no dia ${hoje} para o user ${userId}:`, totalQuantidade);
+        return totalQuantidade;
+
+    } catch (error) {
+        console.error('Erro ao regatar e somar hidratação:', error);
+        throw error;
+
+    }
+};
+
+// Para regatar e somar o tempo de exercícios realizados no dia
+export const getTempoExercDoDia = async (userId, hoje) => {
+    const db = getDb();
+    try {
+        const result = await db.getFirstAsync(
+            'SELECT SUM(tempoMin) AS totalTempoMin FROM exercicios WHERE idUser = ? AND diaHora LIKE ? || "%";',
+            [userId, hoje]
+        );
+
+        const totalTempoMin = (result?.totalTempoMin ?? 0);
+
+        console.log(`Tempo total de exercício no dia ${hoje} para o user ${userId}:`, totalTempoMin);
+        return totalTempoMin;
+
+    } catch (error) {
+        console.error('Erro ao resgatar e somar tempo de exercícios:', error); // Corrigido 'regatar'
+        throw error;
+    }
+};

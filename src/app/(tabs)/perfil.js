@@ -17,7 +17,7 @@ export default function PerfilUsuarioPage() {
 
     const handleUpdatePress = () => {
         Alert.alert(
-            'Funcionalidade Indisponível',
+            'Funcionalidade Indisponível :(',
             'A atualização de dados ainda não está disponível nessa versão do APP.',
             [{ text: 'OK' }]
         );

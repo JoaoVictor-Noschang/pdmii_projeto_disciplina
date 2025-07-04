@@ -21,10 +21,15 @@ export default function RegistroExerci({ registro, onDelete }) {
     };
 
     const formatarTempoExerc = (tempo) => {
-        if (tempo >= 60) { 
-            return (tempo / 60).toFixed(1) + 'h'; 
+        if (tempo >= 60) {
+            const horas = Math.floor(tempo / 60);
+            const minutosRestantes = tempo % 60;
+            if (minutosRestantes > 0) {
+                return `${horas}h ${minutosRestantes}min`;
+            }
+            return `${horas}h`;
         } else {
-            return tempo + 'min';
+            return `${tempo}min`;
         }
     };
 
