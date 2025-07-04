@@ -89,12 +89,12 @@ export default function DashboardPage() {
                 </View>
                 <View style={styles.label}>
                     <Text style={styles.labelText}>Consumo de Calorias</Text>
-                    <Text style={[styles.labelInfo, { backgroundColor: '#FF5714' }]}>{calorias} Kcal</Text>
+                    <Text style={[styles.labelInfo, { backgroundColor: '#ff6347' }]}>{calorias} Kcal</Text>
                 </View>
                 <View style={styles.label}>
                     <Text style={styles.labelText}>Consumo de Água</Text>
 
-                    <Text style={[styles.labelInfo, { backgroundColor: '#1BE7FF' }]}>
+                    <Text style={[styles.labelInfo, { backgroundColor: '#4895EF' }]}>
                         {(hidratacoes / 1000).toFixed(2)} Lt
                     </Text>
 
@@ -102,13 +102,6 @@ export default function DashboardPage() {
                 <View style={styles.label}>
                     <Text style={styles.labelText}>Tempo de Exercícios</Text>
                     <Text style={[styles.labelInfo, { backgroundColor: '#8C52FF' }]}>{formatarTempoExerc(tempExerc)}</Text>
-                </View>
-                <View style={[styles.label, { marginTop: 15 }]}>
-                    <Text style={styles.labelText}>IMC Atual</Text>
-                    <View style={styles.dubLabel}>
-                        <Text style={styles.labelImc}>22,86</Text>
-                        <Text style={styles.labelImc}>Normal</Text>
-                    </View>
                 </View>
             </View>
 
@@ -126,7 +119,8 @@ const styles = StyleSheet.create({
         paddingBottom: '10%',
     },
     dashboard: {
-        padding: 25,
+        paddingHorizontal: 25,
+        paddingVertical: 35,
         backgroundColor: '#0D3B66',
         borderRadius: 25,
         color: "#fff",
@@ -153,18 +147,10 @@ const styles = StyleSheet.create({
     labelInfo: {
         width: '100%',
         borderRadius: 5,
-        padding: 10
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
-    dubLabel: {
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
-        gap: '2%',
-    },
-    labelImc: {
-        width: '49%',
-        borderRadius: 5,
-        padding: 10,
-        backgroundColor: '#6EEB83',
-    }
 });
