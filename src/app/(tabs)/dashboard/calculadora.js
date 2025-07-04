@@ -3,17 +3,56 @@ import {
     StyleSheet,
     View,
     Text,
-    Image,
     TouchableOpacity,
-    ScrollView,
-    Modal,
     TextInput,
-    Button,
+    Alert,
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
 
 export default function CalculadoraPage() {
+
+    const [mostraResultado, setMostraResultado] = useState(false);
+
+    const [imc, setImc] = useState('');
+    const [peso, setPeso] = useState('');
+    const [altura, setAltura] = useState('');
+    const [observacao, setObservacao] = useState('');
+
+    // Função que normaliza o número (troca vírgula por ponto)
+    const parseNumero = (valor) => {
+        const num = parseFloat(valor.replace(',', '.'));
+        return isNaN(num) ? 0 : num;
+    };
+
+    const calcularImc = () => {
+        const pesoNum = parseNumero(peso);
+        const alturaNum = parseNumero(altura);
+
+        if (pesoNum <= 0 || alturaNum <= 0) {
+            Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente!');
+            return;
+        }
+
+        const resultado = pesoNum / (alturaNum * alturaNum);
+        const resultadoFormatado = resultado.toFixed(2);
+        setImc(resultadoFormatado);
+
+        let obs = '';
+
+        if (resultado < 18.5) obs = 'Abaixo do peso';
+        else if (resultado < 24.9) obs = 'Peso normal';
+        else if (resultado < 29.9) obs = 'Sobrepeso';
+        else if (resultado < 34.9) obs = 'Obesidade grau I';
+        else if (resultado < 39.9) obs = 'Obesidade grau II';
+        else obs = 'Obesidade grau III (mórbida)';
+
+        setObservacao(obs);
+        setMostraResultado(true);
+
+        setPeso('');
+        setAltura('');
+    };
 
     return (
         <View style={styles.tela}>
@@ -29,36 +68,54 @@ export default function CalculadoraPage() {
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Peso</Text>
                     <View style={styles.inputArea}>
-                        <TextInput style={styles.input} placeholder='Quilos' />
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Quilos'
+                            keyboardType="numeric"
+                            onChangeText={setPeso}
+                            value={peso}
+                        />
                         <Text style={styles.medida}>Kg</Text>
                     </View>
                 </View>
                 <View style={styles.labelInput}>
                     <Text style={styles.labelText}>Altura</Text>
                     <View style={styles.inputArea}>
-                        <TextInput style={styles.input} placeholder='Metros' />
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Metros'
+                            keyboardType="numeric"
+                            onChangeText={setAltura}
+                            value={altura}
+                        />
                         <Text style={styles.medida}>Mt</Text>
                     </View>
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.btn}>
-                <Text 
-                    style={{ fontWeight: 'bold', color:'#fff', fontSize:16, textAlign: 'center' }}
+            <TouchableOpacity
+                style={styles.btn}
+                onPress={() => calcularImc(peso, altura)}
+            >
+                <Text
+                    style={{ fontWeight: 'bold', color: '#fff', fontSize: 16, textAlign: 'center' }}
                 >CALCULAR</Text>
             </TouchableOpacity>
 
-            <View style={styles.resultado}>
-                <Text style={{ fontSize:18, fontWeight:'bold' }}>Resultado</Text>
-                <View style={{ gap: 5 }}>
+            {mostraResultado && (
+                <View style={styles.resultado}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Resultado</Text>
+                    <View style={{ gap: 5 }}>
                         <Text>IMC</Text>
-                        <Text style={styles.result}>IMC</Text>
-                </View>
-                <View style={{ gap: 5 }}>
+                        <Text style={styles.result}>{ imc }</Text>
+                    </View>
+                    <View style={{ gap: 5 }}>
                         <Text>Observação</Text>
-                        <Text style={styles.result}>Normal para os dados informados</Text>
+                        <Text style={styles.result}>{ observacao }</Text>
+                    </View>
                 </View>
-            </View>
+            )}
+
         </View>
     );
 }

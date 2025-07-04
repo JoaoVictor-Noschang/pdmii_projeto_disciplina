@@ -28,10 +28,16 @@ export default function RefeicaoPage() {
     const [peso, setPeso] = useState('');
     const [caloria, setCaloria] = useState('');
 
+    const parseNumero = (valor) => {
+        const num = parseFloat(valor.replace(',', '.'));
+        return isNaN(num) ? 0 : num;
+    };
+
     const handleRegister = async () => {
-        // Converte para número decimal
-        const realPeso = parseFloat(peso);
-        const realCaloria = parseInt(caloria);
+
+        // Converte para número decimal e trata o uso de vírgula e ponto
+        const realPeso = parseNumero(peso);
+        const realCaloria = parseNumero(caloria);
 
         if (!titulo || !hora || !minuto || isNaN(realPeso) || isNaN(realCaloria)) {
             Alert.alert('Erro', 'Por favor, preencha todos os campos.');
@@ -61,7 +67,7 @@ export default function RefeicaoPage() {
         const idUserDoInsert = userDoInsert.id;
 
         try {
-            await addNewRefeicao(titulo, dateTimeSalvar, peso, caloria, idUserDoInsert);
+            await addNewRefeicao(titulo, dateTimeSalvar, realPeso, realCaloria, idUserDoInsert);
 
             setModalVisible(false)
 
