@@ -1,19 +1,41 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
-import { Link, router } from 'expo-router';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-export default function RegistroRef({ registro }) {
+export default function RegistroRef({ registro, onDelete }) {
+
+    //formatar a data para dd/mm/aa - hh:mm
+    const formatarDataRefeicao = (isoDateString) => {
+        if (!isoDateString) return 'Data Inválida';
+
+        const dateObj = new Date(isoDateString);
+
+        if (isNaN(dateObj.getTime())) {
+            return 'Data Inválida';
+        }
+
+        const dia = String(dateObj.getDate()).padStart(2, '0');
+        const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const ano = String(dateObj.getFullYear()).slice(-2);
+        const horas = String(dateObj.getHours()).padStart(2, '0');
+        const minutos = String(dateObj.getMinutes()).padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
+    };
+
     return (
         <View style={styles.card}>
             <View style={styles.head}>
-                <Text style={styles.title}>{registro.title}</Text>
-                <Text style={styles.date}>{registro.date}</Text>
+                <Text style={styles.title}>{registro.titulo}</Text>
+                <Text style={styles.date}>{formatarDataRefeicao(registro.diaHora)}</Text>
             </View>
             <View style={styles.body}>
                 <Text style={styles.tx}>{registro.peso} g</Text>
                 <Text style={styles.tx}>-</Text>
-                <Text style={[styles.tx, { fontWeight: 'bold' }]}>{registro.kal} Kcal</Text>
+                <Text style={[styles.tx, { fontWeight: 'bold' }]}>{registro.caloria} Kcal</Text>
             </View>
-            <TouchableOpacity style={styles.deletar}>
+            <TouchableOpacity 
+                style={styles.deletar}
+                onPress={() => onDelete && onDelete(registro.id)}
+            >
                 <Image
                     source={require('../assets/icons/lixeira.png')}
                     style={styles.icon}

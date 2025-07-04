@@ -23,7 +23,18 @@ export const initDb = async () => {
                 email TEXT NOT NULL,
                 pass TEXT NOT NULL,
                 dateNasc TEXT NOT NULL,
-                status INTEGER NOT NULL DEFAULT 0 -- Usando INTEGER explicitamente
+                status INTEGER NOT NULL DEFAULT 0
+            );
+            CREATE TABLE IF NOT EXISTS refeicoes (
+                id INTEGER PRIMARY KEY NOT NULL,
+                titulo TEXT NOT NULL,
+                diaHora TEXT NOT NULL,
+                peso REAL NOT NULL,
+                caloria INTEGER NOT NULL,
+                idUser INTEGER NOT NULL,
+                    FOREIGN KEY (idUser) 
+                    REFERENCES user (id) 
+                        ON DELETE CASCADE
             );
         `);
 
@@ -45,9 +56,11 @@ export const insertUser = async (name, email, pass, dateNasc, status = false) =>
             [name, email, pass, dateNasc, statusValue]
         );
         console.log('Usuário inserido com sucesso!');
+
     } catch (error) {
         console.error('Erro ao inserir usuário:', error);
         throw error;
+
     }
 };
 
@@ -61,9 +74,11 @@ export const getUsers = async () => {
             ...user,
             status: user.status === 1 // Converte 1 para true, qualquer outro (0) para false
         }));
+
     } catch (error) {
         console.error('Erro ao obter usuários:', error);
         throw error;
+
     }
 };
 
@@ -71,15 +86,17 @@ export const getUsers = async () => {
 export const updateUserStatus = async (userId, newStatus) => {
     const db = getDb();
     try {
-        const statusValue = newStatus ? 1 : 0; // Converte booleano para INTEGER (1 ou 0)
+        const statusValue = newStatus ? 1 : 0;
         await db.runAsync(
             'UPDATE user SET status = ? WHERE id = ?;',
             [statusValue, userId]
         );
         console.log(`Status do usuário ${userId} atualizado para ${newStatus}.`);
+
     } catch (error) {
         console.error('Erro ao atualizar status do usuário:', error);
         throw error;
+
     }
 };
 
@@ -97,9 +114,11 @@ export const getUsuarioLogado = async () => {
             };
         }
         return null; // Retorna null se nenhum usuário logado for encontrado
+
     } catch (error) {
         console.error('Erro ao obter usuário logado:', error);
         throw error;
+
     }
 };
 
@@ -109,13 +128,15 @@ export const logoutAllUsers = async () => {
     try {
         await db.runAsync('UPDATE user SET status = 0;'); // Define todos os status para 0 (false)
         console.log('Todos os usuários foram deslogados (status = 0).');
+
     } catch (error) {
         console.error('Erro ao deslogar todos os usuários:', error);
         throw error;
+
     }
 };
 
-// Função para fazer login a pártir de dados registrados
+// Função para fazer login a partir de dados registrados
 export const loginUsuarioRegistrado = async (email, password) => {
     const db = getDb();
     try {
@@ -131,9 +152,60 @@ export const loginUsuarioRegistrado = async (email, password) => {
                 status: user.status === 1
             };
         }
-        return null; // Retorna null se as credenciais não corresponderem
+        return null;
+
     } catch (error) {
         console.error('Erro ao buscar usuário por credenciais:', error);
         throw error;
+
+    }
+};
+
+// Função para cadastrar uma nova refeição
+export const addNewRefeicao = async (titulo, diaHora, peso, caloria, userId) => {
+    const db = getDb();
+    try {
+        await db.runAsync(
+            'INSERT INTO refeicoes (titulo, diaHora, peso, caloria, idUser) VALUES (?, ?, ?, ?, ?);',
+            [titulo, diaHora, peso, caloria, userId]
+        );
+        console.log('Refeição inserida com sucesso!');
+
+    } catch (error) {
+        console.error('Erro ao inserir uma nova refeição:', error);
+        throw error;
+
+    }
+}
+
+// Função para resgatar os registro de refeições
+export const getRefeicoesByUserId = async (userId) => {
+    const db = getDb();
+    try {
+        const results = await db.getAllAsync(
+            'SELECT * FROM refeicoes WHERE idUser = ? ORDER BY diaHora DESC;',
+            [userId]
+        );
+        console.log(`Refeições encontradas para o usuário ${userId}:`, results);
+        return results;
+
+    } catch (error) {
+        console.error('Erro ao buscar refeições por ID de usuário:', error);
+        throw error;
+
+    }
+};
+
+// Função para deletar uma refeição específica
+export const deleteRefeicao = async (refeicaoId) => {
+    const db = getDb();
+    try {
+        await db.runAsync('DELETE FROM refeicoes WHERE id = ?;', [refeicaoId]);
+        console.log(`Refeição com ID ${refeicaoId} deletada com sucesso!`);
+
+    } catch (error) {
+        console.error(`Erro ao deletar a refeição com ID ${refeicaoId}:`, error);
+        throw error;
+        
     }
 };
