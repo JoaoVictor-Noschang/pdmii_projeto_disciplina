@@ -24,7 +24,7 @@ export default function RefeicaoPage() {
     const [listRefeicoes, setListRefeicoes] = useState([]);
     const [titulo, setTitulo] = useState('');
     const [hora, setHora] = useState('');
-    const [minuto, setMinuto] = useState('')
+    const [minuto, setMinuto] = useState('');
     const [peso, setPeso] = useState('');
     const [caloria, setCaloria] = useState('');
 
@@ -52,10 +52,12 @@ export default function RefeicaoPage() {
         const dateTimeSalvar = `${ano}-${mes}-${dia} ${horaFormatada}:${minutoFormatado}:00`;
 
         const userDoInsert = await getUsuarioLogado();
+
         if (!userDoInsert) {
             Alert.alert('Erro', 'Nenhum usuário logado. Não é possível cadastrar a refeição');
             return;
         }
+        
         const idUserDoInsert = userDoInsert.id;
 
         try {

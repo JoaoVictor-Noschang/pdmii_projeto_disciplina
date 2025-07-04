@@ -36,6 +36,15 @@ export const initDb = async () => {
                     REFERENCES user (id) 
                         ON DELETE CASCADE
             );
+            CREATE TABLE IF NOT EXISTS hidratacoes (
+                id INTEGER PRIMARY KEY NOT NULL,
+                quantidade REAL NOT NULL,
+                diaHora TEXT NOT NULL,
+                idUser INTEGER NOT NULL,
+                    FOREIGN KEY (idUser) 
+                    REFERENCES user (id) 
+                        ON DELETE CASCADE
+            );
         `);
 
         console.log('Database inicializado e as tabelas foram criadas com sucesso!');
@@ -205,6 +214,56 @@ export const deleteRefeicao = async (refeicaoId) => {
 
     } catch (error) {
         console.error(`Erro ao deletar a refeição com ID ${refeicaoId}:`, error);
+        throw error;
+        
+    }
+};
+
+
+// Função para cadastrar uma nova hidratação
+export const addNewHidro = async (quantidade, diaHora, userId) => {
+    const db = getDb();
+    try {
+        await db.runAsync(
+            'INSERT INTO hidratacoes (quantidade, diaHora, idUser) VALUES (?, ?, ?);',
+            [quantidade, diaHora, userId]
+        );
+        console.log('Hidratação inserida com sucesso!');
+
+    } catch (error) {
+        console.error('Erro ao inserir uma nova hidratação:', error);
+        throw error;
+
+    }
+}
+
+// Função para resgatar os registro de hidratação
+export const getHidroByUserId = async (userId) => {
+    const db = getDb();
+    try {
+        const results = await db.getAllAsync(
+            'SELECT * FROM hidratacoes WHERE idUser = ? ORDER BY diaHora DESC;',
+            [userId]
+        );
+        console.log(`Hidratações encontradas para o usuário ${userId}:`, results);
+        return results;
+
+    } catch (error) {
+        console.error('Erro ao buscar idratações por ID de usuário:', error);
+        throw error;
+
+    }
+};
+
+// Função para deletar uma hidratação específica
+export const deleteHidro = async (hidroId) => {
+    const db = getDb();
+    try {
+        await db.runAsync('DELETE FROM hidratacoes WHERE id = ?;', [hidroId]);
+        console.log(`Hidratação com ID ${hidroId} deletada com sucesso!`);
+
+    } catch (error) {
+        console.error(`Erro ao deletar a hidratação com ID ${hidroId}:`, error);
         throw error;
         
     }

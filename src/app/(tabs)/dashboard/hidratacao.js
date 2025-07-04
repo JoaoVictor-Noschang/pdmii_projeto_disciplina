@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     StyleSheet,
     View,
@@ -9,24 +9,122 @@ import {
     Modal,
     TextInput,
     Button,
+    Alert
 } from 'react-native';
 
 import HeaderPage from '../../../../components/Header';
 import RegistroHidro from '../../../../components/RegistroHidro';
 
+import { addNewHidro, getUsuarioLogado, getHidroByUserId, deleteHidro } from '../../../../data/database';
+
 export default function Hidratacao() {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [titulo, setTitulo] = useState('');
-    const [descricao, setDescricao] = useState('');
 
-    const handleSalvarNota = () => {
-        console.log('Título:', titulo);
-        console.log('Descrição:', descricao);
-        // Aqui você pode salvar a nota em um array, estado global, backend etc.
-        setTitulo('');
-        setDescricao('');
-        setModalVisible(false);
+    const [listHidratacoes, setListHidratacoes] = useState([]);
+    const [quantidade, setQuantidade] = useState('');
+    const [hora, setHora] = useState('');
+    const [minuto, setMinuto] = useState('');
+
+    const handleRegister = async () => {
+
+        const realQuant = parseFloat(quantidade);
+
+        if (isNaN(realQuant) || !hora || !minuto) {
+            Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+            return;
+        }
+
+        const dataInsert = new Date();
+        const ano = dataInsert.getFullYear();
+        const mes = (dataInsert.getMonth() + 1).toString().padStart(2, '0');
+        const dia = dataInsert.getDate().toString().padStart(2, '0');
+        const horaFormatada = hora.padStart(2, '0');
+        const minutoFormatado = minuto.padStart(2, '0');
+        // Formato ISO 8601: YYYY-MM-DD HH:MM:SS
+        const dateTimeSalvar = `${ano}-${mes}-${dia} ${horaFormatada}:${minutoFormatado}:00`;
+
+        const userDoInsert = await getUsuarioLogado();
+
+        if (!userDoInsert) {
+            Alert.alert('Erro', 'Nenhum usuário logado. Não é possível cadastrar a refeição');
+            return;
+        }
+
+        const idUserDoInsert = userDoInsert.id;
+
+        try {
+            await addNewHidro(quantidade, dateTimeSalvar, idUserDoInsert);
+
+            setModalVisible(false)
+
+            Alert.alert('Sucesso', 'Hidratação cadastrada com sucesso!');
+
+            setQuantidade('');
+            setHora('');
+            setMinuto('');
+
+            await fetchHidratacoes();
+
+        } catch (error) {
+            console.error('Erro ao cadastrar hidratação:', error);
+
+            Alert.alert('Erro no Cadastro', 'Não foi possível cadastrar a hidratação. Tente novamente.');
+        }
+    }
+
+    const fetchHidratacoes = useCallback(async () => {
+        try {
+            const user = await getUsuarioLogado();
+            if (user && user.id) {
+                const hidratacoesDoUsuario = await getHidroByUserId(user.id);
+                setListHidratacoes(hidratacoesDoUsuario);
+
+            } else {
+                console.log('Nenhum usuário logado para buscar hidratações.');
+                setListHidratacoes([]);
+
+            }
+        } catch (error) {
+            console.error('Erro ao buscar hidratações:', error);
+            Alert.alert('Erro', 'Não foi possível carregar suas hidratações.');
+            setListHidratacoes([]);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchHidratacoes();
+    }, [fetchHidratacoes]);
+
+    const clicarDeleteHidratacao = async (hidroId) => {
+        Alert.alert(
+            "Confirmar Exclusão",
+            "Tem certeza que deseja excluir esta hidratação?",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Excluir",
+                    onPress: async () => {
+                        try {
+                            await deleteHidro(hidroId);
+                            Alert.alert('Sucesso', 'Hidratação excluída com sucesso!');
+
+                            await fetchHidratacoes();
+
+                        } catch (error) {
+                            console.error('Erro ao excluir hidratação:', error);
+                            Alert.alert('Erro', 'Não foi possível excluir a hidratação. Tente novamente.');
+
+                        }
+                    },
+                    style: "destructive"
+                }
+            ],
+            { cancelable: true }
+        );
     };
 
     return (
@@ -47,7 +145,19 @@ export default function Hidratacao() {
             <Text style={styles.subtitle}>Registros de Hidratação</Text>
 
             <ScrollView>
-                <RegistroHidro registro={{ title: "Água", date: "28/06/2025 - 12:45", litro: 500, kal: 1200 }} />
+                {listHidratacoes.length === 0 ? (
+                    <Text style={styles.noRecordsText}>Nenhuma hidratação registrada ainda.</Text>
+                ) : (
+                    listHidratacoes.map((hidro) => {
+                        return (
+                            <RegistroHidro
+                                key={hidro.id}
+                                registro={hidro}
+                                onDelete={clicarDeleteHidratacao}
+                            />
+                        );
+                    })
+                )}
             </ScrollView>
 
             {/* MODAL */}
@@ -65,19 +175,36 @@ export default function Hidratacao() {
                             <TextInput
                                 style={styles.mInput}
                                 placeholder="Água em Ml.."
+                                keyboardType="numeric"
+                                onChangeText={setQuantidade}
+                                value={quantidade}
                             />
                         </View>
                         <View style={styles.mLabel}>
                             <Text style={styles.mTitle}>Hora da Hidratação</Text>
                             <View style={styles.mHora}>
-                                <TextInput style={styles.mInputHor} placeholder='hora' readOnly={true} />
+                                <TextInput
+                                    style={styles.mInputHor}
+                                    placeholder='hora'
+                                    keyboardType="numeric"
+                                    maxLength={2}
+                                    onChangeText={setHora}
+                                    value={hora}
+                                />
                                 <Text style={styles.mTitle}>:</Text>
-                                <TextInput style={styles.mInputHor} placeholder='min' readOnly={true} />
+                                <TextInput
+                                    style={styles.mInputHor}
+                                    placeholder='min'
+                                    keyboardType="numeric"
+                                    maxLength={2}
+                                    onChangeText={setMinuto}
+                                    value={minuto}
+                                />
                             </View>
                         </View>
                         <View style={styles.mButton}>
                             <Button color={'#FF1A1A'} title="Cancelar" onPress={() => setModalVisible(false)} />
-                            <Button color={'#45D778'} title="Cadastrar" onPress={handleSalvarNota} />
+                            <Button color={'#45D778'} title="Cadastrar" onPress={handleRegister} />
                         </View>
                     </View>
                 </View>
