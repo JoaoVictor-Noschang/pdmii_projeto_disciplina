@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     StyleSheet,
     View,
@@ -7,7 +7,7 @@ import {
 
 import HeaderPage from '../../../../components/Header';
 
-export default function AssetExample() {
+export default function DashboardPage() {
 
     return (
         <View style={styles.tela}>

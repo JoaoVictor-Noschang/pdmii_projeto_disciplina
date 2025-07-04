@@ -13,7 +13,7 @@ import {
 
 import HeaderPage from '../../../../components/Header';
 
-export default function Calculadora() {
+export default function CalculadoraPage() {
 
     return (
         <View style={styles.tela}>

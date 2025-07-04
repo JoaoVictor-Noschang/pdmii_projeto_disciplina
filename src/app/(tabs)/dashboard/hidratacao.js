@@ -17,7 +17,7 @@ import RegistroHidro from '../../../../components/RegistroHidro';
 
 import { addNewHidro, getUsuarioLogado, getHidroByUserId, deleteHidro } from '../../../../data/database';
 
-export default function Hidratacao() {
+export default function HidratacaoPage() {
 
     const [modalVisible, setModalVisible] = useState(false);
 

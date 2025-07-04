@@ -13,7 +13,7 @@ import { router } from 'expo-router';
 
 import { getUsuarioLogado, updateUserStatus } from '../../../data/database';
 
-export default function PerfilUsuario() {
+export default function PerfilUsuarioPage() {
 
     const handleUpdatePress = () => {
         Alert.alert(

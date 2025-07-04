@@ -17,7 +17,7 @@ import RegistroExerci from '../../../../components/RegistroExerci';
 
 import { getUsuarioLogado, addNewExerc, getExercByUserId, deleteExerc } from '../../../../data/database';
 
-export default function Exercicio() {
+export default function ExercicioPage() {
 
     const [modalVisible, setModalVisible] = useState(false);
 
