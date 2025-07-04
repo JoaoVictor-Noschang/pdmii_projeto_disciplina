@@ -161,7 +161,7 @@ export default function RefeicaoPage() {
 
             <ScrollView>
                 {listRefeicoes.length === 0 ? (
-                    <Text style={styles.subtitle}>Nenhuma refeição registrada ainda.</Text>
+                    <Text style={styles.noRecordsText}>Nenhuma refeição registrada ainda.</Text>
                 ) : (
                     listRefeicoes.map((ref) => {
                         return (
