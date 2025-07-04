@@ -15,6 +15,14 @@ import { getUsuarioLogado, updateUserStatus } from '../../../data/database';
 
 export default function PerfilUsuario() {
 
+    const handleUpdatePress = () => {
+        Alert.alert(
+            'Funcionalidade Indisponível',
+            'A atualização de dados ainda não está disponível nessa versão do APP.',
+            [{ text: 'OK' }]
+        );
+    };
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -78,7 +86,7 @@ export default function PerfilUsuario() {
                     <TextInput
                         style={styles.input}
                         placeholder='Nome do usuário'
-                        value={user?.name || ''} // Exibe o nome do usuário
+                        value={user?.name || ''}
                         readOnly={true}
                     />
                 </View>
@@ -87,7 +95,7 @@ export default function PerfilUsuario() {
                     <TextInput
                         style={styles.input}
                         placeholder='E-mail'
-                        value={user?.email || ''} // Exibe o e-mail do usuário
+                        value={user?.email || ''}
                         readOnly={true}
                     />
                 </View>
@@ -96,7 +104,7 @@ export default function PerfilUsuario() {
                     <TextInput
                         style={styles.input}
                         placeholder='Data de Nascimento'
-                        value={user?.dateNasc || ''} // Exibe o e-mail do usuário
+                        value={user?.dateNasc || ''}
                         readOnly={true}
                     />
                 </View>
@@ -104,7 +112,7 @@ export default function PerfilUsuario() {
 
             <TouchableOpacity
                 style={styles.atualizar}
-                onPress={() => { handlePressInput() }}
+                onPress={() => { handleUpdatePress() }}
             >
                 <Text style={styles.atuCont}>Atualizar Dados</Text>
             </TouchableOpacity>

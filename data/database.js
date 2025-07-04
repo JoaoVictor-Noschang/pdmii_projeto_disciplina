@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
 // Variável para armazenar a instância do banco de dados
-let _db = null; 
+let _db = null;
 
 export const getDb = () => {
     if (!_db) {
@@ -45,6 +45,16 @@ export const initDb = async () => {
                     REFERENCES user (id) 
                         ON DELETE CASCADE
             );
+            CREATE TABLE IF NOT EXISTS exercicios (
+                id INTEGER PRIMARY KEY NOT NULL,
+                titulo TEXT NOT NULL,
+                tempoMin REAL NOT NULL,
+                diaHora TEXT NOT NULL,
+                idUser INTEGER NOT NULL,
+                    FOREIGN KEY (idUser) 
+                    REFERENCES user (id) 
+                        ON DELETE CASCADE
+            );
         `);
 
         console.log('Database inicializado e as tabelas foram criadas com sucesso!');
@@ -54,6 +64,9 @@ export const initDb = async () => {
         throw error;
     }
 };
+
+
+// Funções de inserção e regate de usuários -------------------------------------------------------------
 
 // Função para inserir o usuário
 export const insertUser = async (name, email, pass, dateNasc, status = false) => {
@@ -73,7 +86,7 @@ export const insertUser = async (name, email, pass, dateNasc, status = false) =>
     }
 };
 
-// Função para resgatar usuário
+// Função para resgatar todos os usuários
 export const getUsers = async () => {
     const db = getDb();
     try {
@@ -91,7 +104,7 @@ export const getUsers = async () => {
     }
 };
 
-// Função para alterar o status do usuário
+// Função para alterar o status (logado ou não) do usuário
 export const updateUserStatus = async (userId, newStatus) => {
     const db = getDb();
     try {
@@ -169,6 +182,10 @@ export const loginUsuarioRegistrado = async (email, password) => {
 
     }
 };
+// ------------------------------------------------------------------------------------------------------------
+
+
+// Funções de CRUD de refeições --------------------------------------------------------------------
 
 // Função para cadastrar uma nova refeição
 export const addNewRefeicao = async (titulo, diaHora, peso, caloria, userId) => {
@@ -187,7 +204,7 @@ export const addNewRefeicao = async (titulo, diaHora, peso, caloria, userId) => 
     }
 }
 
-// Função para resgatar os registro de refeições
+// Função para resgatar os registros de refeições
 export const getRefeicoesByUserId = async (userId) => {
     const db = getDb();
     try {
@@ -215,10 +232,13 @@ export const deleteRefeicao = async (refeicaoId) => {
     } catch (error) {
         console.error(`Erro ao deletar a refeição com ID ${refeicaoId}:`, error);
         throw error;
-        
+
     }
 };
+// ------------------------------------------------------------------------------------------------------------
 
+
+// Funções de CRUD de hidratações --------------------------------------------------------------------
 
 // Função para cadastrar uma nova hidratação
 export const addNewHidro = async (quantidade, diaHora, userId) => {
@@ -265,6 +285,60 @@ export const deleteHidro = async (hidroId) => {
     } catch (error) {
         console.error(`Erro ao deletar a hidratação com ID ${hidroId}:`, error);
         throw error;
-        
+
     }
 };
+// ------------------------------------------------------------------------------------------------------------
+
+
+// Funções de CRUD de exercicios --------------------------------------------------------------------
+
+// Função para cadastrar um novo evxercicio
+export const addNewExerc = async (titulo, duracao, diaHora, userId) => {
+    const db = getDb();
+    try {
+        await db.runAsync(
+            'INSERT INTO exercicios (titulo, tempoMin, diaHora, idUser) VALUES (?, ?, ?, ?);',
+            [titulo, duracao, diaHora, userId]
+        );
+        console.log('Exercícios inserido com sucesso!');
+
+    } catch (error) {
+        console.error('Erro ao inserir um novo exercício:', error);
+        throw error;
+
+    }
+}
+
+// Função para resgatar os registro de hidratação
+export const getExercByUserId = async (userId) => {
+    const db = getDb();
+    try {
+        const results = await db.getAllAsync(
+            'SELECT * FROM exercicios WHERE idUser = ? ORDER BY diaHora DESC;',
+            [userId]
+        );
+        console.log(`Exercícios encontradas para o usuário ${userId}:`, results);
+        return results;
+
+    } catch (error) {
+        console.error('Erro ao buscar exercícios por ID de usuário:', error);
+        throw error;
+
+    }
+};
+
+// Função para deletar uma hidratação específica
+export const deleteExerc = async (exercId) => {
+    const db = getDb();
+    try {
+        await db.runAsync('DELETE FROM exercicios WHERE id = ?;', [exercId]);
+        console.log(`Exercício com ID ${exercId} deletado com sucesso!`);
+
+    } catch (error) {
+        console.error(`Erro ao deletar a exercício com ID ${exercId}:`, error);
+        throw error;
+
+    }
+};
+// ------------------------------------------------------------------------------------------------------------
