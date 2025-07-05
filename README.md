@@ -1,10 +1,3 @@
-Links de Acesso:
-
-[Sobre o App](#pluslife) | [Como rodar o projeto](#como-rodar-o-projeto) | [Tecnologias utilizadas](#tecnologias_utilizadas)
-
----
-
-
 # ➕💚 PlusLife 
 
 O PlusLife é um aplicativo móvel desenvolvido para auxiliar usuários a monitorar e manter um estilo de vida saudável, registrando atividades físicas, alimentação e hidratação. Ele oferece as seguintes funcionalidades (Requisitos Funcionais):
