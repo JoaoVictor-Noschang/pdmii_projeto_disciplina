@@ -5,7 +5,6 @@ Links de Acesso:
 ---
 
 <br>
-<br>
 
 # ➕💚 PlusLife 
 
@@ -20,51 +19,11 @@ O PlusLife é um aplicativo móvel desenvolvido para auxiliar usuários a monito
 
 ## 🏃‍♂ Possui as seguintes telas:
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
+	![Login](/imgs_telas/tela_login.png) ![Cadastro de Usuário](/imgs_telas/tela_cadastro.png) 
+    ![Home Page/Dashboard](/imgs_telas/tela_dashboard.png) ![Registros de Refeições](/imgs_telas/tela_refeicoes.png)
+    ![Registrod de Hidratações](/imgs_telas/tela_hidratacoes.png) ![Registro de Exercícios](/imgs_telas/tela_exercicios.png) 
+    ![Calculadora de IMC](/imgs_telas/tela_imc.png) ![Perfil do Usuário](/imgs_telas/tela_perfil.png) 
 
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Login</p>
-    <img src="imgs_telas/tela_login.png" alt="Tela Login" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Cadastro de Usuário</p>
-    <img src="imgs_telas/tela_cadastro.png" alt="Tela Cadastro" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Home Page/Dashboard</p>
-    <img src="imgs_telas/tela_dashboard.png" alt="Tela Home" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Registros de Refeições</p>
-    <img src="imgs_telas/tela_refeicoes.png" alt="Tela Refeições" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Registros de Hidratações</p>
-    <img src="imgs_telas/tela_hidratacoes.png" alt="Tela Hidratação" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Registros de Exercícios</p>
-    <img src="imgs_telas/tela_exercicios.png" alt="Tela Exercícios" height="350">
-  </div>
-
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Calculadora de IMC</p>
-    <img src="imgs_telas/tela_imc.png" alt="Tela IMC" height="350">
-  </div>
-  
-  <div style="flex: 1 1 20%; text-align: center;">
-    <p>Perfil do Usuário</p>
-    <img src="imgs_telas/tela_perfil.png" alt="Tela Perfil" height="350">
-  </div>
-
-</div>
-
-<br>
 <br>
 
 # 🤓 Como rodar o projeto?
@@ -76,7 +35,7 @@ Para executar o *PlusLife* em sua máquina, siga os passos abaixo:
     bash
     git clone [https://github.com/JoaoVictor-Noschang/pdmii_projeto_disciplina.git](https://github.com/JoaoVictor-Noschang/pdmii_projeto_disciplina.git)
     
-    <br>
+<br>
 
 2.  *Instale as Dependências:*
     Navegue até o diretório do projeto clonado e instale todas as dependências necessárias com:
@@ -100,7 +59,6 @@ Para executar o *PlusLife* em sua máquina, siga os passos abaixo:
     
     Este comando abrirá o Metro Bundler no seu terminal, onde você poderá escanear o QR code com o aplicativo Expo Go no seu celular ou usar um emulador.
 
-<br>
 <br>
 
 
@@ -132,8 +90,6 @@ Além disso o sistema deve cumprir os seguinte requisitos:
 
     - ✅ Utiliza persistência de dados local com o SQLite.
 
-
-<br>
 <br>
 
 # 🖥 Tecnologias Utilizadas
