@@ -4,7 +4,6 @@ Links de Acesso:
 
 ---
 
-<br>
 
 # ➕💚 PlusLife 
 
@@ -19,10 +18,19 @@ O PlusLife é um aplicativo móvel desenvolvido para auxiliar usuários a monito
 
 ## 🏃‍♂ Possui as seguintes telas:
 
-	![Login](/imgs_telas/tela_login.png) ![Cadastro de Usuário](/imgs_telas/tela_cadastro.png) 
-    ![Home Page/Dashboard](/imgs_telas/tela_dashboard.png) ![Registros de Refeições](/imgs_telas/tela_refeicoes.png)
-    ![Registrod de Hidratações](/imgs_telas/tela_hidratacoes.png) ![Registro de Exercícios](/imgs_telas/tela_exercicios.png) 
-    ![Calculadora de IMC](/imgs_telas/tela_imc.png) ![Perfil do Usuário](/imgs_telas/tela_perfil.png) 
+<p align="center">
+  <img src="./imgs_telas/tela_login.png" alt="Login" width="200"/>
+  <img src="./imgs_telas/tela_cadastro.png" alt="Cadastro de Usuário" width="200"/>
+  <img src="./imgs_telas/tela_dashboard.png" alt="Home Page/Dashboard" width="200"/>
+  <img src="./imgs_telas/tela_refeicoes.png" alt="Registros de Refeições" width="200"/>
+</p>
+
+<p align="center">
+  <img src="./imgs_telas/tela_hidratacoes.png" alt="Registro de Hidratações" width="200"/>
+  <img src="./imgs_telas/tela_exercicios.png" alt="Registro de Exercícios" width="200"/>
+  <img src="./imgs_telas/tela_imc.png" alt="Calculadora de IMC" width="200"/>
+  <img src="./imgs_telas/tela_perfil.png" alt="Perfil do Usuário" width="200"/>
+</p>
 
 <br>
 
