@@ -25,34 +25,56 @@ export default function CalculadoraPage() {
         return isNaN(num) ? 0 : num;
     };
 
-    const calcularImc = () => {
-        const pesoNum = parseNumero(peso);
-        const alturaNum = parseNumero(altura);
+    const calcularImcRemote = async () => {
+        const numPeso = parseNumero(peso);
+        const numAltura = parseNumero(altura);
 
-        if (pesoNum <= 0 || alturaNum <= 0) {
-            Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente!');
+        // validação básicado dos antes de enviar para o serviço
+        if(isNaN(numPeso) || isNaN(numAltura) || numPeso <=0 || numAltura <=0) {
+            Alert.alert('Erro de Entrada', 'Por favor, insira valores válidos e maiores que zero para peso e altura.');
+            setImc('');
+            setObservacao('Dados inválidos');
             return;
         }
 
-        const resultado = pesoNum / (alturaNum * alturaNum);
-        const resultadoFormatado = resultado.toFixed(2);
-        setImc(resultadoFormatado);
+        try {
+            // Url do microserviço
+            const apiUrl = 'http://<ipLocal>/calculate-imc';
 
-        let obs = '';
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ peso: numPeso, altura: numAltura }),
+            });
 
-        if (resultado < 18.5) obs = 'Abaixo do peso';
-        else if (resultado < 24.9) obs = 'Peso normal';
-        else if (resultado < 29.9) obs = 'Sobrepeso';
-        else if (resultado < 34.9) obs = 'Obesidade grau I';
-        else if (resultado < 39.9) obs = 'Obesidade grau II';
-        else obs = 'Obesidade grau III (mórbida)';
+            const data = await response.json();
 
-        setObservacao(obs);
-        setMostraResultado(true);
+            // Verifica se a resposta HTTP foi bem-sucedida (status 2xx)
+            if(response.ok) {
+                setImc(data.imc.toFixed(2));
+                setObservacao(data.observation);
+                setMostraResultado(true);
 
-        setPeso('');
-        setAltura('');
-    };
+                setPeso('');
+                setAltura('');
+
+            } else {
+                // Lida com erros retornados pelo serviço (status 4xx, 5xx)
+                Alert.alert('Erro no Cálculo', data.error || 'Não foi possível calcular o IMC.');
+                setImc('');
+                setObservacao('Erro no serviço');
+
+            }
+
+        } catch (error) {
+            console.error('Erro ao conectar ao microserviço de IMC:', error);
+            Alert.alert('Erro de Conexão', 'Não foi possível conectar ao serviço de cálculo de IMC. Verifique sua rede e se o serviço está rodando.');
+            setImc('');
+            setObservacao('Erro de conexão');
+        }
+    }
 
     return (
         <View style={styles.tela}>
@@ -95,7 +117,7 @@ export default function CalculadoraPage() {
 
             <TouchableOpacity
                 style={styles.btn}
-                onPress={() => calcularImc(peso, altura)}
+                onPress={calcularImcRemote}
             >
                 <Text
                     style={{ fontWeight: 'bold', color: '#fff', fontSize: 16, textAlign: 'center' }}
@@ -107,7 +129,7 @@ export default function CalculadoraPage() {
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Resultado</Text>
                     <View style={{ gap: 5 }}>
                         <Text>IMC</Text>
-                        <Text style={styles.result}>{ imc }</Text>
+                        <Text style={styles.result}>{ imc || '0.00' }</Text>
                     </View>
                     <View style={{ gap: 5 }}>
                         <Text>Observação</Text>
