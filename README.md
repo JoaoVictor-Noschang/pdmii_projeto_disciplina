@@ -121,8 +121,16 @@ Projeto para a Disciplina de *Programação de Dispositivos Móveis II*
 
 Além disso o sistema deve cumprir os seguinte requisitos:
 - Possuir 5 telas;
+
+    - ✅ Projeto possui 8 telas: Login, cadastro, home, registro de refeições, de hidratação, de exercícios, calculadora de IMC e perfil do usuário.
+
 - Possuir pelo menos 1 microsserviço;
+
+    - ✅ A lógica do IMC é feita por uma API externa que recebe os dados e retorna o resultado do calculo e a informação de acordo com o resultado.
+
 - Possuir Persistência de dados (local, BD, nuvem, ou outro).
+
+    - ✅ Utiliza persistência de dados local com o SQLite.
 
 
 <br>
