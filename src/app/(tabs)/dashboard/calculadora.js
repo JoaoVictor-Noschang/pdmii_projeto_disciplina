@@ -39,7 +39,7 @@ export default function CalculadoraPage() {
 
         try {
             // Url do microserviço
-            const apiUrl = 'http://<ipLocal>/calculate-imc';
+            const apiUrl = 'http://<ipLocal>:<portaUtilizada>/calculate-imc';
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
