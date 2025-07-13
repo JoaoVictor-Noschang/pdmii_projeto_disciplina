@@ -33,8 +33,10 @@ Para executar o *PlusLife* em sua máquina, siga os passos abaixo:
 
 1.  *Clone o Repositório:*
     Abra seu terminal ou prompt de comando e execute:
-    bash
-    git clone [https://github.com/JoaoVictor-Noschang/pdmii_projeto_disciplina.git](https://github.com/JoaoVictor-Noschang/pdmii_projeto_disciplina.git)
+
+    ```bash
+    git clone https://github.com/JoaoVictor-Noschang/pdmii_projeto_disciplina.git
+    ```
     
 <br>
 
